@@ -1,5 +1,6 @@
 streamlit
-librosa
 numpy
 scikit-learn
+librosa
+soundfile
 resampy
