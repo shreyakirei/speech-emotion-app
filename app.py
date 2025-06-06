@@ -63,7 +63,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("🎧‪‪❤︎ ‬Speech Emotion Detection App ‪‪❤︎🎧")
+st.title("‬Speech Emotion Detection App ‪‪❤︎🎧")
 
 uploaded_file = st.file_uploader("Upload a WAV audio file", type=["wav"])
 
