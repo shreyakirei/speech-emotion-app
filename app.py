@@ -18,7 +18,7 @@ emotion_dict = {
     "7": "surprised"
 }
 
-# Apply custom CSS styles for light pink background and cute UI
+# Apply custom CSS styles for light pink background and black font
 st.markdown(
     """
     <style>
@@ -27,16 +27,16 @@ st.markdown(
         background-color: #ffebf0 !important;
     }
 
-    /* Main text styling */
+    /* Set all fonts to black */
     body, .css-1d391kg, .css-1v3fvcr {
-        color: #c94f7c !important;
+        color: #000000 !important;
         font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
     /* Style primary buttons */
     button[kind="primary"] {
         background-color: #fbcfe8 !important;
-        color: #7a3d5d !important;
+        color: #4b0079 !important;  /* darker purple for button text */
         border-radius: 12px !important;
         font-size: 16px !important;
         border: 2px solid #f9a8d4 !important;
@@ -57,7 +57,7 @@ st.markdown(
 )
 
 # Page title
-st.title("🌸 Speech Emotion Detector { try this with your own audacity .wav file!!! ")
+st.title("🌸 Cute Speech Emotion Detector")
 
 # File uploader widget
 uploaded_file = st.file_uploader("💖 Upload a WAV audio file", type=["wav"])
@@ -85,7 +85,7 @@ if uploaded_file is not None:
 
         st.markdown(f"""
         <div style='text-align: center; margin-top: 30px;'>
-            <h2>🎯 Detected Emotion:</h2>
-            <h1 style='color: #db2777;'>💘 {emotion.upper()} 💘</h1>
+            <h2 style="color: #000000;">🎯 Detected Emotion:</h2>
+            <h1 style='color: #000000;'>💘 {emotion.upper()} 💘</h1>
         </div>
         """, unsafe_allow_html=True)
