@@ -3,61 +3,8 @@ import librosa
 import numpy as np
 import pickle
 
-# Load your trained model
+# Load trained model
 model = pickle.load(open("model.pkl", "rb"))
-
-emotion_dict = {
-    "0": "neutral",
-    "1": "calm",
-    "2": "happy",
-    "3": "sad",
-    "4": "angry",
-    "5": "fearful",
-    "6": "disgust",
-    "7": "surprised"
-}
-
-st.markdown(
-    """
-    <style>
-    /* Background color */
-    .stApp {
-        background-color: #ffebf0 !important;
-    }
-
-    /* Force black color for all text elements */
-    .stApp, 
-    .stApp * {
-        color: #000000 !important;
-        font-family: 'Comic Sans MS', cursive, sans-serif !important;
-    }
-
-    /* Style buttons */
-    button[kind="primary"] {
-        background-color: #fbcfe8 !important;
-        color: #4b0079 !important;
-        border-radius: 12px !important;
-        font-size: 16px !important;
-        border: 2px solid #f9a8d4 !important;
-        padding: 10px 20px !important;
-    }
-
-    button[kind="primary"]:hover {
-        background-color: #f9a8d4 !important;
-    }
-
-    /* Center the title */
-    .css-10trblm h1 {
-        text-align: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-st.title("‪‪❤︎‬ Speech Emotion Detector {try with your own audacity .wav file! ‪‪❤︎‬")
-
-uploaded_file = st.file_uploader("💖 Upload a WAV audio file", type=["wav"])
 
 def extract_features(file):
     try:
@@ -69,6 +16,57 @@ def extract_features(file):
         st.error(f"Error processing audio: {e}")
         return None
 
+# Set page title and layout
+st.set_page_config(page_title="🎤 Speech Emotion Recognizer", layout="centered")
+
+# Inject custom CSS for styling
+st.markdown(
+    """
+    <style>
+    /* Background color for the whole app */
+    .stApp {
+        background-color: #ffe4e6 !important;  /* very light pink */
+    }
+
+    /* Make all text black and use a cute font */
+    .stApp, .stApp * {
+        color: #000000 !important;
+        font-family: 'Comic Sans MS', cursive, sans-serif !important;
+    }
+
+    /* Style the file uploader button */
+    div[role="button"] > label[for^="file"] {
+        background-color: #f9c1d9 !important;  /* light pink */
+        color: #3b0050 !important;  /* dark purple for contrast */
+        border-radius: 12px !important;
+        padding: 12px 20px !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        border: 2px solid #f48fb1 !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        transition: background-color 0.3s ease !important;
+    }
+
+    /* Hover effect for uploader button */
+    div[role="button"] > label[for^="file"]:hover {
+        background-color: #f48fb1 !important;
+        color: #1a0033 !important;
+    }
+
+    /* Center title text */
+    .css-10trblm h1 {
+        text-align: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title("🎧‪‪❤︎ ‬Speech Emotion Detection App ‪‪❤︎🎧")
+
+uploaded_file = st.file_uploader("Upload a WAV audio file", type=["wav"])
+
 if uploaded_file is not None:
     st.audio(uploaded_file, format="audio/wav")
 
@@ -76,12 +74,8 @@ if uploaded_file is not None:
 
     if features is not None:
         prediction = model.predict([features])[0]
-        emotion = emotion_dict.get(str(prediction), "unknown")
+        st.write(f"Raw model prediction: {prediction} (type: {type(prediction)})")
 
-        st.markdown(f"""
-        <div style='text-align: center; margin-top: 30px;'>
-            <h2>🎯 Detected Emotion:</h2>
-            <h1>💘 {emotion.upper()} 💘</h1>
-        </div>
-        """, unsafe_allow_html=True)
-
+        # Since prediction is a string label, use it directly
+        emotion = prediction  
+        st.success(f"🎯 Detected Emotion: **{emotion.upper()}**")
