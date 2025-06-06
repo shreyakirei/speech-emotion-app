@@ -3,10 +3,8 @@ import librosa
 import numpy as np
 import pickle
 
-# Load trained model
 model = pickle.load(open("model.pkl", "rb"))
 
-# Define emotions
 emotion_dict = {
     "0": "neutral",
     "1": "calm",
@@ -18,13 +16,12 @@ emotion_dict = {
     "7": "surprised"
 }
 
-# Set page config and styling
 st.set_page_config(page_title="🎀 Speech Emotion App", page_icon="🎧", layout="centered")
 
 st.markdown("""
 <style>
 body {
-    background-color: #ffebf0;  /* softer light pink */
+    background-color: #ffebf0;  /* lighter pastel pink */
     font-family: 'Comic Sans MS', cursive, sans-serif;
     color: #c94f7c;
 }
@@ -74,3 +71,4 @@ if uploaded_file is not None:
             <h1 style='color: #db2777;'>💘 {emotion.upper()} 💘</h1>
         </div>
         """, unsafe_allow_html=True)
+
