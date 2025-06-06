@@ -24,7 +24,7 @@ st.set_page_config(page_title="🎀 Speech Emotion App", page_icon="🎧", layou
 st.markdown("""
 <style>
 body {
-    background-color: #ffe4e6;
+    background-color: #ffebf0;  /* softer light pink */
     font-family: 'Comic Sans MS', cursive, sans-serif;
     color: #c94f7c;
 }
