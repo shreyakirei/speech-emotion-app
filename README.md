@@ -1,6 +1,10 @@
 # Speech Emotion Detection App 🎧
 
 This is a Streamlit web application that detects emotions from speech audio files (.wav format) using a trained machine learning model.
+# My Project
+
+Check out the live app here: [My App](https://speech-emotion-app-shreyakirei.streamlit.app/)
+
 
 ## Features
 
