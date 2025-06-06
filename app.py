@@ -3,8 +3,10 @@ import librosa
 import numpy as np
 import pickle
 
+# Load your trained model
 model = pickle.load(open("model.pkl", "rb"))
 
+# Emotion dictionary mapping predicted labels to emotion names
 emotion_dict = {
     "0": "neutral",
     "1": "calm",
@@ -16,36 +18,51 @@ emotion_dict = {
     "7": "surprised"
 }
 
-st.set_page_config(page_title="🎀 Speech Emotion App", page_icon="🎧", layout="centered")
+# Apply custom CSS styles for light pink background and cute UI
+st.markdown(
+    """
+    <style>
+    /* Background color for whole app */
+    .stApp {
+        background-color: #ffebf0 !important;
+    }
 
-st.markdown("""
-<style>
-body {
-    background-color: #ffebf0;  /* lighter pastel pink */
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    color: #c94f7c;
-}
-h1, h2, h3 {
-    color: #c94f7c;
-}
-.stButton>button {
-    background-color: #fbcfe8;
-    color: #7a3d5d;
-    border: 2px solid #f9a8d4;
-    border-radius: 12px;
-    font-size: 16px;
-    padding: 10px 20px;
-}
-.stButton>button:hover {
-    background-color: #f9a8d4;
-}
-</style>
-""", unsafe_allow_html=True)
+    /* Main text styling */
+    body, .css-1d391kg, .css-1v3fvcr {
+        color: #c94f7c !important;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
 
-st.title("🌸 Cute Speech Emotion Detector")
+    /* Style primary buttons */
+    button[kind="primary"] {
+        background-color: #fbcfe8 !important;
+        color: #7a3d5d !important;
+        border-radius: 12px !important;
+        font-size: 16px !important;
+        border: 2px solid #f9a8d4 !important;
+        padding: 10px 20px !important;
+    }
 
+    button[kind="primary"]:hover {
+        background-color: #f9a8d4 !important;
+    }
+
+    /* Center title */
+    .css-10trblm h1 {
+        text-align: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Page title
+st.title("🌸 Speech Emotion Detector { try this with your own audacity .wav file!!! ")
+
+# File uploader widget
 uploaded_file = st.file_uploader("💖 Upload a WAV audio file", type=["wav"])
 
+# Function to extract MFCC features from audio
 def extract_features(file):
     try:
         audio, sample_rate = librosa.load(file, res_type='kaiser_fast')
@@ -56,6 +73,7 @@ def extract_features(file):
         st.error(f"Error processing audio: {e}")
         return None
 
+# If a file is uploaded, process and predict emotion
 if uploaded_file is not None:
     st.audio(uploaded_file, format="audio/wav")
 
@@ -71,4 +89,3 @@ if uploaded_file is not None:
             <h1 style='color: #db2777;'>💘 {emotion.upper()} 💘</h1>
         </div>
         """, unsafe_allow_html=True)
-
