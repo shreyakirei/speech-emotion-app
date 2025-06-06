@@ -6,7 +6,7 @@ This is a Streamlit web application that detects emotions from speech audio file
 Check out the live app here: [My App](https://speech-emotion-app-shreyakirei.streamlit.app/)
 
 
-## Features
+ ## Features
 
 - Upload a WAV audio file through a drag-and-drop interface.
 - Extracts audio features using `librosa`.
