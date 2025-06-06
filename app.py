@@ -6,7 +6,6 @@ import pickle
 # Load your trained model
 model = pickle.load(open("model.pkl", "rb"))
 
-# Emotion dictionary mapping predicted labels to emotion names
 emotion_dict = {
     "0": "neutral",
     "1": "calm",
@@ -18,25 +17,25 @@ emotion_dict = {
     "7": "surprised"
 }
 
-# Apply custom CSS styles for light pink background and black font
 st.markdown(
     """
     <style>
-    /* Background color for whole app */
+    /* Background color */
     .stApp {
         background-color: #ffebf0 !important;
     }
 
-    /* Set all fonts to black */
-    body, .css-1d391kg, .css-1v3fvcr {
+    /* Force black color for all text elements */
+    .stApp, 
+    .stApp * {
         color: #000000 !important;
-        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-family: 'Comic Sans MS', cursive, sans-serif !important;
     }
 
-    /* Style primary buttons */
+    /* Style buttons */
     button[kind="primary"] {
         background-color: #fbcfe8 !important;
-        color: #4b0079 !important;  /* darker purple for button text */
+        color: #4b0079 !important;
         border-radius: 12px !important;
         font-size: 16px !important;
         border: 2px solid #f9a8d4 !important;
@@ -47,7 +46,7 @@ st.markdown(
         background-color: #f9a8d4 !important;
     }
 
-    /* Center title */
+    /* Center the title */
     .css-10trblm h1 {
         text-align: center;
     }
@@ -56,13 +55,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Page title
-st.title("🌸 Cute Speech Emotion Detector")
+st.title("‪‪❤︎‬ Speech Emotion Detector {try with your own audacity .wav file! ‪‪❤︎‬")
 
-# File uploader widget
 uploaded_file = st.file_uploader("💖 Upload a WAV audio file", type=["wav"])
 
-# Function to extract MFCC features from audio
 def extract_features(file):
     try:
         audio, sample_rate = librosa.load(file, res_type='kaiser_fast')
@@ -73,7 +69,6 @@ def extract_features(file):
         st.error(f"Error processing audio: {e}")
         return None
 
-# If a file is uploaded, process and predict emotion
 if uploaded_file is not None:
     st.audio(uploaded_file, format="audio/wav")
 
@@ -85,7 +80,8 @@ if uploaded_file is not None:
 
         st.markdown(f"""
         <div style='text-align: center; margin-top: 30px;'>
-            <h2 style="color: #000000;">🎯 Detected Emotion:</h2>
-            <h1 style='color: #000000;'>💘 {emotion.upper()} 💘</h1>
+            <h2>🎯 Detected Emotion:</h2>
+            <h1>💘 {emotion.upper()} 💘</h1>
         </div>
         """, unsafe_allow_html=True)
+
